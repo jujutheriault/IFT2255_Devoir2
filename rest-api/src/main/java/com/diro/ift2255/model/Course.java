@@ -13,8 +13,8 @@ public class Course {
     private int credits;                   // Nombre de crédits
     private String trimestre;              // Trimestre d'offre (ex : Hiver 2026)
     private String cycle;                  // Cycle d'études (ex : baccalauréat, maîtrise)
-    private String[] prerequis;            // Prérequis (sigles des cours requis)
-    private String[] corequis;             // Co-requis (sigles des cours à suivre en parallèle)
+    private List<String> prerequis;        // Prérequis (sigles des cours requis)
+    private List<String> corequis;         // Co-requis (sigles des cours à suivre en parallèle)
 
     public Course() {}
 
