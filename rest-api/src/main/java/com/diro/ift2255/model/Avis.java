@@ -17,8 +17,7 @@ public class Avis {
     public Avis() {}
     
     // Constructeur avec paramètres
-    public Avis(String session, String trimestre, int annee, int nivDifficulte,
-                int volumeTravail, String professeur, int nombreAvis) {
+    public Avis(String session, String trimestre, int annee, int nivDifficulte,int volumeTravail, String professeur, int nombreAvis){
         this.session = session;
         this.trimestre = trimestre;
         this.annee = annee;
