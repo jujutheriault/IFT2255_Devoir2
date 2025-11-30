@@ -76,7 +76,7 @@ public class Etudiant {
         return debutProgramme;
     }
 
-    public void setPreferences(Preferences preferences){
+    public void setPreferences(String[] preferences){
 
     this.preferences = preferences;
 
