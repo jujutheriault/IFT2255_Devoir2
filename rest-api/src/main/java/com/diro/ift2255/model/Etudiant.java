@@ -9,70 +9,53 @@ public class Etudiant {
     private String programme;
     private int cycle;
     private LocalDateTime debutProgramme;
+
     private String[] preferences;               // On pourra faire une classe Preferences plus tard
     private String[] coursPasse;                // On pourra faire une classe sigle plus tard
     private String[] filtres;
 
+    public Etudiant() {}
 
-
-    public void setmatricule(int matricule){
-
+    // Getters / Setters
+    public void setMatricule(int matricule){
         this.matricule = matricule;
     }
-
     public int getMatricule(){
-
         return matricule;
     }
 
-
     public void setPrenom(String prenom){
-
         this.prenom = prenom;
     }
-
     public String getPrenom(){
-
         return prenom;
     }
 
     public void setNom(String nom){
-
         this.nom = nom;
     }
-
     public String getNom(){
-
         return nom;
     }
 
     public void setProgramme(String programme){
-
         this.programme = programme;
     }
-
     public String getProgramme(){
-
         return programme;
     }
 
     public void setCycle(int cycle){
-
         this.cycle = cycle;
     }
-
     public int getCycle(){
-
         return cycle;
     }
 
     public void setDebutProgramme(LocalDateTime debutProgramme){
-
         this.debutProgramme = debutProgramme;
     }
-
     public LocalDateTime getDebutProgramme(){
-
         return debutProgramme;
     }
 
@@ -83,7 +66,6 @@ public class Etudiant {
     }
 
     public String[] getPreferences(){
-
         return preferences;
     }
 
@@ -93,38 +75,14 @@ public class Etudiant {
     }
 
     public String[] getcoursPasse(){
-
         return coursPasse;
     }
 
-
     public void setFiltres(String[] filtres){
-
         this.filtres = filtres;
     }
-
     public String[] getFiltres(){
-
         return filtres;
-    }
-
-
-    public void modifierProfil(){
-
-
-
-    }
-
-
-    public void ajouterFiltre(){
-
-
-    }
-
-
-    public void sauvegarderSelection(){
-
-        
     }
 }
 

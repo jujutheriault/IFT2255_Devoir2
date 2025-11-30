@@ -7,10 +7,12 @@ com/diro/ift2255/config/Routes.class
 com/diro/ift2255/util/ValidationUtil.class
 com/diro/ift2255/model/User.class
 com/diro/ift2255/controller/UserController.class
+com/diro/ift2255/model/TableauComparaison.class
 com/diro/ift2255/model/Etudiant.class
 com/diro/ift2255/service/UserService.class
 com/diro/ift2255/util/HttpClientApi.class
 com/diro/ift2255/util/HttpStatus.class
+com/diro/ift2255/model/Preferences.class
 com/diro/ift2255/model/ResultatsAgreges.class
 com/diro/ift2255/model/Avis.class
 com/diro/ift2255/service/CourseService$1.class

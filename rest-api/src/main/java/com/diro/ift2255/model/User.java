@@ -7,11 +7,8 @@ public class User {
     private int id;
     private String name;
     private String email;
-
-    // Ajouts
     private String password;
     private boolean estAuthentifie;
-    
 
     public User() {}
 
@@ -24,6 +21,7 @@ public class User {
         this.estAuthentifie = false;
     }
 
+    // Getters / Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -35,7 +33,7 @@ public class User {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    
-    public boolean isEstAuthentifie() {return estAuthentifie; }
+
+    public boolean isEstAuthentifie() { return estAuthentifie; }
     public void setEstAuthentifie(boolean estAuthentifie) { this.estAuthentifie = estAuthentifie; }
 }

@@ -15,3 +15,5 @@
 /home/alixloungnarath/ift2255/IFT2255_Devoir2/rest-api/src/main/java/com/diro/ift2255/model/Etudiant.java
 /home/alixloungnarath/ift2255/IFT2255_Devoir2/rest-api/src/main/java/com/diro/ift2255/util/HttpClientApi.java
 /home/alixloungnarath/ift2255/IFT2255_Devoir2/rest-api/src/main/java/com/diro/ift2255/util/ResponseUtil.java
+/home/alixloungnarath/ift2255/IFT2255_Devoir2/rest-api/src/main/java/com/diro/ift2255/model/Preferences.java
+/home/alixloungnarath/ift2255/IFT2255_Devoir2/rest-api/src/main/java/com/diro/ift2255/model/TableauComparaison.java

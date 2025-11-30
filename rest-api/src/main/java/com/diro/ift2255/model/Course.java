@@ -10,6 +10,7 @@ public class Course {
     private String name;
     private String description;
 
+
     // Ajouts basés sur le retour de l'API planifium
 
     private int credits;
@@ -37,6 +38,7 @@ public class Course {
 
         //Ajouts 
         // this.professeur = professeur;
+
         this.credits = credits;
         this.prerequisite_courses = prerequisite_courses;
         this.concomitant_courses = concomitant_courses;
@@ -46,7 +48,6 @@ public class Course {
         this.cycle = null;
     }
 
-
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -54,9 +55,9 @@ public class Course {
     public void setName(String name) { this.name = name; }
 
     public String getDescription() { return description; }
-    public void setDescription(String email) { this.description = email; }
+    public void setDescription(String description) { this.description = description; }
 
-    //Ajouts 
+    // Ajouts
     public String getProfesseur() { return professeur; }
     public void setProfesseur(String professeur) { this.professeur = professeur; }
 
@@ -74,5 +75,5 @@ public class Course {
 
     public List<String>  getCorequis() { return concomitant_courses; }
     public void setCorequis(List<String> concomitant_courses) { this.concomitant_courses = concomitant_courses; }
-    
 }
+
