@@ -8,23 +8,23 @@ public class Course {
     private String name;
     private String description;
 
-    //Ajouts 
-    private String professeur;             // Professeur responsable du cours
-    private int credits;                   // Nombre de crédits
-    private String trimestre;              // Trimestre d'offre (ex : Hiver 2026)
-    private String cycle;                  // Cycle d'études (ex : baccalauréat, maîtrise)
-    private List<String> prerequis;        // Prérequis (sigles des cours requis)
-    private List<String> corequis;         // Co-requis (sigles des cours à suivre en parallèle)
+    // Ajouts
+    private String professeur;
+    private int credits;
+    private String trimestre;
+    private String cycle;
+    private String[] prerequis; // sigles des cours requis
+    private String[] corequis;  // sigles des co-requis
 
     public Course() {}
 
-    public Course(String id, String name, String desc, String professeur, int credits,
-                  String trimestre, String cycle, String[] prerequis, String[] corequis) {
+    public Course(String id, String name, String description,
+                  String professeur, int credits,
+                  String trimestre, String cycle,
+                  String[] prerequis, String[] corequis) {
         this.id = id;
         this.name = name;
-        this.description = desc;
-
-        //Ajouts 
+        this.description = description;
         this.professeur = professeur;
         this.credits = credits;
         this.trimestre = trimestre;
@@ -33,7 +33,6 @@ public class Course {
         this.corequis = corequis;
     }
 
-
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -41,9 +40,9 @@ public class Course {
     public void setName(String name) { this.name = name; }
 
     public String getDescription() { return description; }
-    public void setDescription(String email) { this.description = email; }
+    public void setDescription(String description) { this.description = description; }
 
-    //Ajouts 
+    // Ajouts
     public String getProfesseur() { return professeur; }
     public void setProfesseur(String professeur) { this.professeur = professeur; }
 
@@ -61,5 +60,5 @@ public class Course {
 
     public String[] getCorequis() { return corequis; }
     public void setCorequis(String[] corequis) { this.corequis = corequis; }
-    
 }
+
