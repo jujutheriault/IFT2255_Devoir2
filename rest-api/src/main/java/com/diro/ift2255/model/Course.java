@@ -27,7 +27,7 @@ public class Course {
     public Course(String id, String name) {
     this.id = id;
     this.name = name;
-}
+    }
 
     public Course(String id, String name, String description, String professeur, int credits,
                   Map<String, Boolean>  available_terms, List<String> prerequisite_courses, 

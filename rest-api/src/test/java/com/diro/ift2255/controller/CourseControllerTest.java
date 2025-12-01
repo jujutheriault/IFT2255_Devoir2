@@ -233,6 +233,80 @@ public class CourseControllerTest {
         }
     }
 
+
+    /**************************************************************************
+     * Tests for searchCourse method
+     *************************************************************************/
+
+    @Test
+    @DisplayName("SearchCourses should return all courses when no query parameters")
+    void testSearchCoursesWithoutQueryParams() {
+        // ARRANGE
+        List<Course> mockCourses = Arrays.asList(
+                new Course("IFT1015", "Programmation I"),
+                new Course("IFT1025", "Programmation II"),
+                new Course("ESP3900", "Espagnol Intermédiaire")); 
+
+        when(mockContext.queryParamMap()).thenReturn(new HashMap<>());
+        when(mockService.getAllCourses(any())).thenReturn(mockCourses);
+
+        // ACT
+        controller.getAllCourses(mockContext);
+
+        // ASSERT
+        try {
+            verify(mockContext).queryParamMap();
+            OK("Query params extracted from context", false);   
+
+            verify(mockContext).json(mockCourses);
+            OK("Response returned with " + mockCourses.size() + " courses");
+        } catch (AssertionError e) {
+            Err(e.getMessage());
+            throw e;
+        }
+    }
+
+
+    @Test
+    @DisplayName("Search courses should return filtered courses based on query params")
+    void testSearchCoursesIDPart() {
+        // ARRANGE
+        Map<String, List<String>> queryParamMap = new HashMap<>();
+        queryParamMap.put("id", Arrays.asList("IFT"));
+
+        List<Course> mockCourses = Arrays.asList(
+                new Course("IFT2255", "Génie logiciel"),
+                new Course("IFT1025", "Programmation II"),
+                new Course("ECON1000", "Macroéconomie")
+        );
+
+        List<Course> expectedFilteredCourses = Arrays.asList(
+            new Course("IFT2255", "Génie logiciel"),
+            new Course("IFT1025", "Programmation II")
+        );
+
+        when(mockContext.queryParamMap()).thenReturn(queryParamMap);
+        when(mockService.getAllCourses(any())).thenReturn(expectedFilteredCourses);
+
+
+        // ACT
+        controller.searchCourses(mockContext);
+
+        // ASSERT
+        try {
+        verify(mockContext).json(argThat(result ->
+            result instanceof List<?> &&
+            ((List<?>) result).size() == 2
+        ));
+        
+        OK("Response returned with filtered courses", false);
+    
+        } catch (AssertionError e) {
+            Err(e.getMessage());
+            throw e;
+        }
+    }
+
     @AfterAll
     static void printFooter() {
         System.out.println("\n" + "=".repeat(80));
@@ -262,4 +336,4 @@ public class CourseControllerTest {
         printMessage(message, false, isLast);
     }
 
-
+}
