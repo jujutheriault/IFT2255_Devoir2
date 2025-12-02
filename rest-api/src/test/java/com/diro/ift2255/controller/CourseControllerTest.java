@@ -242,6 +242,7 @@ public class CourseControllerTest {
     @DisplayName("SearchCourses should return all courses when no query parameters")
     void testSearchCoursesWithoutQueryParams() {
         // ARRANGE
+        // Base de données simulées
         List<Course> mockCourses = Arrays.asList(
                 new Course("IFT1015", "Programmation I"),
                 new Course("IFT1025", "Programmation II"),
@@ -251,15 +252,17 @@ public class CourseControllerTest {
         when(mockService.getAllCourses(any())).thenReturn(mockCourses);
 
         // ACT
-        controller.getAllCourses(mockContext);
+        // On appelle searchCourses sans paramètres de requête
+        controller.searchCourses(mockContext);
 
         // ASSERT
         try {
-            verify(mockContext).queryParamMap();
-            OK("Query params extracted from context", false);   
-
-            verify(mockContext).json(mockCourses);
-            OK("Response returned with " + mockCourses.size() + " courses");
+            // On verifie que la réponse contient tous les cours
+            verify(mockContext).json(argThat(list ->
+                list instanceof List<?> &&
+                ((List<?>) list).size() == mockCourses.size()
+            ));
+            OK("Response returned with all courses when no query parameters", false);
         } catch (AssertionError e) {
             Err(e.getMessage());
             throw e;
@@ -272,14 +275,18 @@ public class CourseControllerTest {
     void testSearchCoursesIDPart() {
         // ARRANGE
         Map<String, List<String>> queryParamMap = new HashMap<>();
+
+        // On cherche les cours dont l'ID contient "IFT"
         queryParamMap.put("id", Arrays.asList("IFT"));
 
+        // Simulation de la base de données de cours
         List<Course> mockCourses = Arrays.asList(
                 new Course("IFT2255", "Génie logiciel"),
                 new Course("IFT1025", "Programmation II"),
                 new Course("ECON1000", "Macroéconomie")
         );
 
+        // Résultat attendu après filtrage
         List<Course> expectedFilteredCourses = Arrays.asList(
             new Course("IFT2255", "Génie logiciel"),
             new Course("IFT1025", "Programmation II")
@@ -290,10 +297,14 @@ public class CourseControllerTest {
 
 
         // ACT
+
+        // On appelle la méthode à tester
         controller.searchCourses(mockContext);
 
         // ASSERT
         try {
+
+        // On vérifie que la réponse contient uniquement les cours filtrés
         verify(mockContext).json(argThat(result ->
             result instanceof List<?> &&
             ((List<?>) result).size() == 2
@@ -306,6 +317,43 @@ public class CourseControllerTest {
             throw e;
         }
     }
+
+    @Test
+    @DisplayName("Search courses should return empty list when no courses match query")
+    void testSearchCoursesNoMatch() {
+        // ARRANGE
+        Map<String, List<String>> queryParamMap = new HashMap<>();
+
+        // Cours qui ne figure pas dans la base de données simulées
+        queryParamMap.put("name", Arrays.asList("CoursInexistant"));
+
+        // Simulation d'une base de données sans cours correspondant
+        List<Course> mockCourses = Arrays.asList(
+                new Course("IFT2255", "Génie logiciel"),
+                new Course("IFT1025", "Programmation II"),
+                new Course("ECON1000", "Macroéconomie")
+        );
+
+        when(mockContext.queryParamMap()).thenReturn(queryParamMap);
+        when(mockService.getAllCourses(any())).thenReturn(mockCourses);
+
+        //ACT
+        // On appelle la méthode à tester avec le CoursInexistant
+        controller.searchCourses(mockContext);
+
+        //ASSERT
+        try {
+            verify(mockContext).json(argThat(result ->  
+                result instanceof List<?> &&
+                ((List<?>) result).isEmpty()
+            ));     
+            OK("Response returned with empty list when no courses match query", false);
+        } catch (AssertionError e) {
+            Err(e.getMessage());
+            throw e;
+        }
+    }
+
 
     @AfterAll
     static void printFooter() {
