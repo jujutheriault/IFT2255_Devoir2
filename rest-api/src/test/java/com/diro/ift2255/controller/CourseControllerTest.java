@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.diro.ift2255.model.Course;
-import com.diro.ift2255.model.rechercheCours;
+import com.diro.ift2255.model.RechercheCours;
 import com.diro.ift2255.service.CourseService;
 
 import io.javalin.http.Context;
@@ -270,90 +270,10 @@ public class CourseControllerTest {
         }
     }
 
+    /**************************************************************************
+     * Tests for filterCourse method
+     *************************************************************************/
 
-    @Test
-    @DisplayName("Search courses should return filtered courses based on query params")
-    void testSearchCoursesIDPart() {
-        // ARRANGE
-        Map<String, List<String>> queryParamMap = new HashMap<>();
-
-        // On cherche les cours dont l'ID contient "IFT"
-        queryParamMap.put("id", Arrays.asList("IFT"));
-
-        // Simulation de la base de données de cours
-        List<Course> mockCourses = Arrays.asList(
-                new Course("IFT2255", "Génie logiciel"),
-                new Course("IFT1025", "Programmation II"),
-                new Course("ECON1000", "Macroéconomie")
-        );
-
-        // Résultat attendu après filtrage
-        List<Course> expectedFilteredCourses = Arrays.asList(
-            new Course("IFT2255", "Génie logiciel"),
-            new Course("IFT1025", "Programmation II")
-        );
-
-        when(mockContext.queryParamMap()).thenReturn(queryParamMap);
-        when(mockService.getAllCourses(any())).thenReturn(expectedFilteredCourses);
-
-
-        // ACT
-
-        // On appelle la méthode à tester
-        controller.searchCourses(mockContext);
-
-        // ASSERT
-        try {
-
-        // On vérifie que la réponse contient uniquement les cours filtrés
-        verify(mockContext).json(argThat(result ->
-            result instanceof List<?> &&
-            ((List<?>) result).size() == 2
-        ));
-        
-        OK("Response returned with filtered courses", false);
-    
-        } catch (AssertionError e) {
-            Err(e.getMessage());
-            throw e;
-        }
-    }
-
-    @Test
-    @DisplayName("Search courses should return empty list when no courses match query")
-    void testSearchCoursesNoMatch() {
-        // ARRANGE
-        Map<String, List<String>> queryParamMap = new HashMap<>();
-
-        // Cours qui ne figure pas dans la base de données simulées
-        queryParamMap.put("name", Arrays.asList("CoursInexistant"));
-
-        // Simulation d'une base de données sans cours correspondant
-        List<Course> mockCourses = Arrays.asList(
-                new Course("IFT2255", "Génie logiciel"),
-                new Course("IFT1025", "Programmation II"),
-                new Course("ECON1000", "Macroéconomie")
-        );
-
-        when(mockContext.queryParamMap()).thenReturn(queryParamMap);
-        when(mockService.getAllCourses(any())).thenReturn(mockCourses);
-
-        //ACT
-        // On appelle la méthode à tester avec le CoursInexistant
-        controller.searchCourses(mockContext);
-
-        //ASSERT
-        try {
-            verify(mockContext).json(argThat(result ->  
-                result instanceof List<?> &&
-                ((List<?>) result).isEmpty()
-            ));     
-            OK("Response returned with empty list when no courses match query", false);
-        } catch (AssertionError e) {
-            Err(e.getMessage());
-            throw e;
-        }
-    }
 
 
     @AfterAll

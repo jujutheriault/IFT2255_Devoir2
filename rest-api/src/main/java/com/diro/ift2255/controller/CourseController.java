@@ -86,6 +86,7 @@ public class CourseController {
         // On va chercher les cours selon les paramètres puis on crée un objet RechercheCours
         List<Course> courses = service.getAllCourses(queryParams);
         RechercheCours recherche = new RechercheCours(courses);
+        courses = recherche.personnaliserRecherche();
         ctx.json(courses);
     }
 

@@ -38,14 +38,19 @@ public class RechercheCours {
 
     // Personnaliser la rechercher
 
-    public List<Course> personnaliserRecherche(String programme) {
+    public List<Course> personnaliserRecherche() {
 
         List<Course> coursPersonnalise = new ArrayList<>();
 
         // On retourne si aucun etudiant n'est authentifié ou si le programme est vide
-        if (etudiant == null || programme == null || programme.isEmpty()) {
+        if (etudiant == null) {
             return listeCours; // Retourne la liste complète si l'étudiant ou le programme est nul
         } 
+        if (etudiant.getProgramme() == null) {
+            return listeCours; // Retourne la liste complète si l'étudiant ou le programme est nul
+        } 
+        
+        String programme = etudiant.getProgramme();
 
         for (Course cours : listeCours) {
             if (cours.getDescription().contains(programme)) {
