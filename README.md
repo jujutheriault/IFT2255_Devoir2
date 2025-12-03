@@ -1,7 +1,4 @@
-# Template de projet REST API avec Javalin - IFT2255
-
-Ce dépôt sert de template de base pour les projets REST API avec Javalin dans le cadre du cours IFT2255 – Génie logiciel.
-Il fournit une structure organisée suivant une architecture MVC (Model–View–Controller) simplifiée, prête à être utilisée pour vos travaux.
+# PRojet de plateforme de gestion d'horaire scolaire à l'UDEM
 
 ## Structure du projet
 
@@ -41,25 +38,6 @@ rest-api/
 │
 └── pom.xml
 ```
-
-## Architecture
-
-Ce template suit principalement le modèle MVC :
-
-- **Model (`model/`)** : Représentation des entités du domaine (ex. User, Course)
-- **Controller (`controller/`)** : Gestion des requêtes HTTP et appels au service
-- **Service (`service/`)** : Logique métier centrale
-- **Util (`util/`)** : Fonctions utilitaires réutilisables (validation, réponses, etc.)
-- **Config (`config/`)** : Configuration du serveur et définition des routes
-- **`Main.java`** : Point d’entrée du serveur (initialise Javalin et enregistre les routes)
-
-## Bonnes pratiques
-
-- Respectez la séparation des responsabilités entre **Controller**, **Service** et **Model**.
-- Utilisez les classes du dossier `util/` pour les validations et la gestion des réponses HTTP.
-- Centralisez les routes dans `config/Routes.java` pour simplifier l’ajout de nouveaux endpoints.
-- Ajoutez des **tests unitaires** pour chaque méthode de service.
-- Conservez un style de code uniforme (respect du standard Java).
 
 ## Instructions d'installation
 
