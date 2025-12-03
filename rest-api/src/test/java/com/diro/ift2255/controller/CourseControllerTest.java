@@ -242,8 +242,8 @@ public class CourseControllerTest {
      *************************************************************************/
 
     @Test
-    @DisplayName("SearchCourses should return all courses when no query parameters")
-    void testSearchCoursesWithoutQueryParams() {
+    @DisplayName("SearchCourses with student user should filter courses by program")
+    void testSearchCoursesStudent() {
         // ARRANGE
         // Base de données simulées
         List<Course> mockCourses = Arrays.asList(
@@ -272,12 +272,49 @@ public class CourseControllerTest {
             verify(mockContext).json(argThat(courses -> 
                 courses instanceof List &&
                 ((List<?>) courses).size() == 2));
-            OK("All courses returned when no query parameters");
+            OK("Only courses matching student's program returned");
         } catch (AssertionError e) {
             Err(e.getMessage());
             throw e;
         }
     }
+
+    @Test
+    @DisplayName("SearchCourses with normal user should return all courses")
+    void testSearchCoursesNormalUser() {
+        // ARRANGE
+        // Base de données simulées
+        List<Course> mockCourses = Arrays.asList(
+                new Course("IFT1015", "Programmation I"),
+                new Course("IFT1025", "Programmation II"),
+                new Course("ESP3900", "Espagnol Intermédiaire")); 
+
+        RechercheCours mockRecherche = new RechercheCours();
+        User mockUser = new User(12345, "Jean Dupont", "jean@hotmail.com");
+
+        // On configure le contrôleur avec un utilisateur simulé
+        controller.setUtilisateur(mockUser);
+
+        when(mockContext.queryParamMap()).thenReturn(new HashMap<>());
+        when(mockService.getAllCourses(any())).thenReturn(mockCourses);
+
+        // ACT
+        // On appelle searchCourses sans paramètres de requête
+        controller.searchCourses(mockContext);
+
+        // ASSERT
+        try {
+            // On verifie que la réponse contient tous les cours
+            verify(mockContext).json(argThat(courses -> 
+                courses instanceof List &&
+                ((List<?>) courses).size() == 3));
+            OK("Only courses matching student's program returned");
+        } catch (AssertionError e) {
+            Err(e.getMessage());
+            throw e;
+        }
+    }
+
 
     @AfterAll
     static void printFooter() {
