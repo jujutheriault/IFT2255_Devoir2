@@ -103,8 +103,8 @@ public class CourseController {
 
         List<Course> searchResult = recherche.rechercher(motRecherche);
 
-        if (!courses.isEmpty()) {
-            ctx.json(courses);
+        if (!searchResult.isEmpty()) {
+            ctx.json(searchResult);
         } else {
             ctx.status(404).json(ResponseUtil.formatError("Aucun résultat trouvé pour la recherche" + motRecherche));
         }

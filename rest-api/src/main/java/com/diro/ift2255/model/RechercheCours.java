@@ -39,18 +39,18 @@ public class RechercheCours {
     // Recherche de cours parsigle partiel, ou mot-clé
     public List<Course> rechercher(String motRecherche){
 
-        List<Course> resultat = new ArrayList<>();
-
         // Si le mot de recherche est vide, on retourne la liste complète
         if (motRecherche == null || motRecherche.isEmpty()) {
             return listeCours;
         }
+                
+        List<Course> resultat = new ArrayList<>();
 
-        for (Course cours : resultat) {
+        for (Course cours : listeCours) {
             if (
-                cours.getId().toLowerCase().contains(motRecherche.toLowerCase())
-                || cours.getName() != null && cours.getName().toLowerCase().contains(motRecherche.toLowerCase())
-                || cours.getDescription() != null && cours.getDescription().toLowerCase().contains(motRecherche.toLowerCase())
+                (cours.getId() != null) && cours.getId().toLowerCase().contains(motRecherche.toLowerCase())
+                || (cours.getName() != null) && cours.getName() != null && cours.getName().toLowerCase().contains(motRecherche.toLowerCase())
+                || ((cours.getDescription() != null) && cours.getDescription() != null && cours.getDescription().toLowerCase().contains(motRecherche.toLowerCase()))
             ) {
                 resultat.add(cours);
             }
