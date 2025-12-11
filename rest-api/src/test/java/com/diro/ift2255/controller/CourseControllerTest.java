@@ -241,10 +241,10 @@ public class CourseControllerTest {
      * Tests for searchCourse method
      *************************************************************************/
 
-    /* // Test pour user identifié comme étudiant
+    /// Test pour recherche vide
     @Test
-    @DisplayName("SearchCourses with student user should filter courses by program")
-    void testSearchCoursesStudent() {
+    @DisplayName("Empty search should return all courses matching student's program")
+    void testEmptySearch() {
         // ARRANGE
         // Base de données simulées
         List<Course> mockCourses = Arrays.asList(
@@ -254,13 +254,15 @@ public class CourseControllerTest {
 
         RechercheCours mockRecherche = new RechercheCours();
         Etudiant mockEtudiant = new Etudiant(12345, "Jean Dupont", "jean@hotmail.com");
-        mockEtudiant.setProgramme("IFT");
 
+        // On crée une recherche avec un mot vide
+        String motRechercheTest = "";
 
         // On configure le contrôleur avec un utilisateur simulé
         controller.setUser(mockEtudiant);
 
         when(mockContext.queryParamMap()).thenReturn(new HashMap<>());
+        when(mockContext.pathParam("recherche")).thenReturn(motRechercheTest);
         when(mockService.getAllCourses(any())).thenReturn(mockCourses);
 
         // ACT
@@ -272,13 +274,13 @@ public class CourseControllerTest {
             // On verifie que la réponse contient tous les cours
             verify(mockContext).json(argThat(courses -> 
                 courses instanceof List &&
-                ((List<?>) courses).size() == 2));
+                ((List<?>) courses).size() == 3));
             OK("Only courses matching student's program returned");
         } catch (AssertionError e) {
             Err(e.getMessage());
             throw e;
         }
-    } */
+    } 
 
     /* // Test pour user qui n'est pas un étudiant sans query params
     @Test
